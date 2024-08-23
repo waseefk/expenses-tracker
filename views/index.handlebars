@@ -1,0 +1,88 @@
+<div class="d-flex justify-content-between align-items-center my-4">
+  <h1>Expense Tracker</h1>
+  <div class="dropdown">
+    <a
+      class="btn dropdown-toggle d-flex align-items-center"
+      href="#"
+      role="button"
+      id="dropdownMenuLink"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <img
+        src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?w=1060&t=st=1724343528~exp=1724344128~hmac=07f8df3b3b41eb028d173f32fdec53dd45e162d99a71458607d355916a8c4e0f"
+        alt="User Icon"
+        class="rounded-circle me-2"
+        width="40"
+        height="40"
+      />
+      <span>{{username}}</span>
+    </a>
+
+    <ul
+      class="dropdown-menu dropdown-menu-end"
+      aria-labelledby="dropdownMenuLink"
+    >
+      <li>
+        <form action="/auth/logout" method="POST">
+          <button type="submit" class="dropdown-item">Logout</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="mb-4">
+  <form action="/expenses" method="POST" class="row g-3">
+    <div class="col-md-6">
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        placeholder="Expense Name"
+        required
+      />
+    </div>
+    <div class="col-md-4">
+      <input
+        type="number"
+        name="amount"
+        class="form-control"
+        placeholder="Amount"
+        required
+      />
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">Add Expense</button>
+    </div>
+  </form>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Date</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each expenses}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>₹{{this.amount}}</td>
+        <td>{{formatDate this.date}}</td>
+        <td>
+          <a
+            href="/expenses/{{this._id}}/edit"
+            class="btn btn-warning btn-sm me-2"
+          >Edit</a>
+          <a
+            href="/expenses/{{this._id}}/delete"
+            class="btn btn-danger btn-sm"
+          >Delete</a>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
